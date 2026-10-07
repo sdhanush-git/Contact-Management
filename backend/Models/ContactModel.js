@@ -13,7 +13,7 @@ const contactSchema = new mongoose.Schema({
   phone: Number,
   status: {
     type: String,
-    enum: ["Intrested", "Follow-Up", "Closed"],
+    enum: ["Interested", "Follow-Up", "Closed"],
     default: "Intrested",
   },
   createdAt: { type: Date, default: Date.now },
