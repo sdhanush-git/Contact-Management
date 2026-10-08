@@ -3,8 +3,6 @@ import ContactModel from "../Models/ContactModel.js";
 export const createContact = async (req, res) => {
   try {
     const data = req.body;
-    // const newContact = new ContactModel(data);
-    // await newContact.save();
 
     const newContact = await ContactModel.create(req.body);
     res.json(newContact);
