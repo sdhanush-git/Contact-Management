@@ -7,14 +7,14 @@ const contactSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    unique: true,
+    sparse: true,
   },
   company: String,
-  phone: Number,
+  phone: String,
   status: {
     type: String,
     enum: ["Interested", "Follow-Up", "Closed"],
-    default: "Intrested",
+    default: "Interested",
   },
   createdAt: { type: Date, default: Date.now },
 });

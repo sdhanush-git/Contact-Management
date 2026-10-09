@@ -2,25 +2,23 @@ import ContactModel from "../Models/ContactModel.js";
 
 export const createContact = async (req, res) => {
   try {
-    const data = req.body;
-
-    const newContact = await ContactModel.create(req.body);
-    res.json(newContact);
+    const data = { ...req.body };
+    if (!data.email || data.email.trim() === "") {
+      delete data.email;
+    }
+    const newContact = await ContactModel.create(data);
+    res.status(201).json(newContact);
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ message: error.message });
   }
 };
 
 export const getContacts = async (req, res) => {
   try {
     const allContacts = await ContactModel.find();
-
-    if (allContacts.length === 0) {
-      return res.json("No Contacts yet");
-    }
-    res.json(allContacts);
+    res.json(allContacts || []);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json({ message: error.message });
   }
 };
 
