@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAppContext } from "../context/UserContacts";
+import { API_URL } from "../api";
 import axios from "axios";
 
 const Form = () => {
@@ -64,16 +65,19 @@ const Form = () => {
 
     const payload = {
       name: formData.name.trim(),
-      email: formData.email.trim(),
       phone: formData.phone.trim(),
       company: formData.company.trim(),
       status: formData.status,
     };
 
+    if (formData.email.trim()) {
+      payload.email = formData.email.trim();
+    }
+
     try {
       if (edit) {
         const response = await axios.put(
-          `http://localhost:5000/contacts/${edit._id}`,
+          `${API_URL}/${edit._id}`,
           payload,
         );
 
@@ -85,10 +89,7 @@ const Form = () => {
         showToast("Contact edited successfully", "success");
         handleCancel();
       } else {
-        const response = await axios.post(
-          "http://localhost:5000/contacts",
-          payload,
-        );
+        const response = await axios.post(API_URL, payload);
 
         setData((prev) => {
           const list = Array.isArray(prev) ? prev : [];

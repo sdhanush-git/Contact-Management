@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Card from "../components/Card";
 import { useAppContext } from "../context/UserContacts";
+import { API_URL } from "../api";
 import axios from "axios";
 
 const ContactCardsPage = () => {
@@ -16,7 +17,7 @@ const ContactCardsPage = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:5000/contacts");
+      const response = await axios.get(API_URL);
       if (Array.isArray(response.data)) {
         setData(response.data);
       } else {

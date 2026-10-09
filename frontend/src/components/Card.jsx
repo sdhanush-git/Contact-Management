@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAppContext } from "../context/UserContacts";
+import { API_URL } from "../api";
 import axios from "axios";
 
 const Card = ({ value }) => {
@@ -14,7 +15,7 @@ const Card = ({ value }) => {
   const handleDelete = async () => {
     setDeleting(true);
     try {
-      await axios.delete(`http://localhost:5000/contacts/${value._id}`);
+      await axios.delete(`${API_URL}/${value._id}`);
       setData((prev) => {
         const list = Array.isArray(prev) ? prev : [];
         return list.filter((contact) => contact._id !== value._id);
